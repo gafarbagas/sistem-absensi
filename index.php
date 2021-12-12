@@ -112,9 +112,10 @@
                 {
                     echo 'Ubah Profil';
                 }
-            }
-            else{
-                echo 'Beranda';
+                elseif ($_GET['halaman']=="beranda")
+                {
+                    echo 'Beranda';
+                }
             }
         ?>
     </title>
@@ -265,9 +266,9 @@
                             {
                                 include 'logout.php';
                             }
-                        }
-                        else{
-                            include 'pages/home.php';
+                            elseif ($_GET['halaman']=="beranda"){
+                                include 'pages/home.php';
+                            }
                         }
                     ?>
                 </div>
