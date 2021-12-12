@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2021 at 07:41 AM
+-- Generation Time: Dec 12, 2021 at 02:58 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -33,16 +33,17 @@ CREATE TABLE `absensi` (
   `id_pegawai` int(20) NOT NULL,
   `tanggal` date NOT NULL,
   `jam_masuk` time NOT NULL,
-  `jam_pulang` time DEFAULT NULL
+  `jam_pulang` time DEFAULT NULL,
+  `keterangan` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `absensi`
 --
 
-INSERT INTO `absensi` (`id_absensi`, `id_pegawai`, `tanggal`, `jam_masuk`, `jam_pulang`) VALUES
-(1, 4, '2021-12-08', '20:30:20', NULL),
-(3, 4, '2021-12-08', '22:14:18', NULL);
+INSERT INTO `absensi` (`id_absensi`, `id_pegawai`, `tanggal`, `jam_masuk`, `jam_pulang`, `keterangan`) VALUES
+(1, 5, '2021-12-12', '20:43:45', NULL, 'Terlambat'),
+(2, 5, '2021-12-12', '20:44:18', NULL, 'Tepat Waktu');
 
 -- --------------------------------------------------------
 
@@ -61,7 +62,8 @@ CREATE TABLE `jabatan` (
 --
 
 INSERT INTO `jabatan` (`id_jabatan`, `kode_jabatan`, `nama_jabatan`) VALUES
-(1, '0001', 'Kepala Divisi Keuangan');
+(1, '0001', 'Kepala Divisi Keuangan'),
+(3, '0002', 'Staff');
 
 -- --------------------------------------------------------
 
@@ -81,7 +83,7 @@ CREATE TABLE `jam_kerja` (
 --
 
 INSERT INTO `jam_kerja` (`id_jam_kerja`, `nama_jam_kerja`, `awal`, `akhir`) VALUES
-(1, 'Masuk', '07:00:00', '08:00:00'),
+(1, 'Masuk', '20:00:00', '21:00:00'),
 (2, 'Pulang', '16:00:00', '17:00:00');
 
 -- --------------------------------------------------------
@@ -106,7 +108,8 @@ CREATE TABLE `pegawai` (
 
 INSERT INTO `pegawai` (`id_pegawai`, `nama_pegawai`, `nip`, `id_jabatan`, `alamat`, `no_telp`, `id_pengguna`) VALUES
 (3, 'Gafar', '12512515', 1, 'test', 2147483647, 10),
-(4, 'Test1', '124124', 1, 'test', 811111111, 11);
+(4, 'Test1', '124124', 1, 'test', 811111111, 11),
+(5, 'test', '1123123', 3, 'test', 2147483647, 16);
 
 -- --------------------------------------------------------
 
@@ -128,8 +131,9 @@ CREATE TABLE `pengguna` (
 
 INSERT INTO `pengguna` (`id_pengguna`, `nama_pengguna`, `role`, `username`, `password`) VALUES
 (2, 'Administrator 2', 'Admin', 'admin22', '123123'),
-(10, 'Gafar', 'Pegawai', 'gafar', '123123'),
-(11, 'Test1', 'Pegawai', 'test1', '123123');
+(10, 'Gafar', 'Pegawai', 'gafar', '22222'),
+(11, 'Test1', 'Pegawai', 'test1', '123123'),
+(16, 'test', 'Pegawai', 'test', '12345');
 
 --
 -- Indexes for dumped tables
@@ -179,13 +183,13 @@ ALTER TABLE `pengguna`
 -- AUTO_INCREMENT for table `absensi`
 --
 ALTER TABLE `absensi`
-  MODIFY `id_absensi` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_absensi` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `jabatan`
 --
 ALTER TABLE `jabatan`
-  MODIFY `id_jabatan` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_jabatan` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `jam_kerja`
@@ -197,13 +201,13 @@ ALTER TABLE `jam_kerja`
 -- AUTO_INCREMENT for table `pegawai`
 --
 ALTER TABLE `pegawai`
-  MODIFY `id_pegawai` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_pegawai` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id_pengguna` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_pengguna` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables
