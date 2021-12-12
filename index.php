@@ -124,15 +124,9 @@
                                 <?php
                                     // if($time >= $masukAwal && $time <= $masukAkhir){
                                     if($time >= $masukAwal){
-                                ?>
-                                    <form action="" method="post">
-                                        <button type="submit" name="masuk" class="btn btn-lg btn-success btn-block py-5 px-5"><i class="fas fa-3x fa-sign-in-alt"></i><br>Masuk</button>
-                                    </form>
-                                <?php
+                                        echo "<form action='' method='post'><button type='submit' name='masuk' class='btn btn-lg btn-success btn-block py-5 px-5'><i class='fas fa-3x fa-sign-in-alt'></i><br>Masuk</button></form>";
                                     }else{
-                                ?>
-                                    <button class="btn btn-lg btn-success btn-block py-5 px-5" disabled><i class="fas fa-3x fa-sign-in-alt"></i><br>Masuk</button>
-                                <?php
+                                        echo "<button class='btn btn-lg btn-success btn-block py-5 px-5' disabled><i class='fas fa-3x fa-sign-in-alt'></i><br>Masuk</button>";
                                     }
                                 ?>
                             </div>

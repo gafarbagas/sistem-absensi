@@ -85,7 +85,7 @@
                                             <tbody>
                                             <?php 
                                                 $nomor=1;
-                                                $sql="SELECT pegawai.id_pegawai AS id_pegawai, pegawai.nama_pegawai AS nama_pegawai, pegawai.nip AS nip, pegawai.alamat AS alamat, pegawai.no_telp AS no_telp, jabatan.nama_jabatan AS nama_jabatan FROM pegawai JOIN jabatan ON pegawai.id_jabatan = jabatan.id_jabatan ORDER BY id_pegawai DESC";
+                                                $sql="SELECT * FROM pegawai JOIN jabatan ON pegawai.id_jabatan = jabatan.id_jabatan ORDER BY id_pegawai DESC";
                                                 $ambil=mysqli_query($koneksi,$sql);
                                                 while($pegawai=$ambil->fetch_assoc()){
                                             ?>

@@ -88,8 +88,8 @@
     ?>
 
 
-    <li class="nav-item">
-        <a class="nav-link" href="cuti">
+    <li class="nav-item <?php echo ($currentPage=='pengajuancuti.php') || ($currentPage=='pengajuancuti_tambah.php') ? 'active':NULL ?>">
+        <a class="nav-link" href="pengajuancuti.php">
             <i class="fas fa-fw fa-clipboard"></i>
             <span>Cuti</span></a>
     </li>
