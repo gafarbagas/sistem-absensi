@@ -14,8 +14,6 @@
         echo "<script>alert('Anda tidak memilik akses');</script>";
         echo "<script>location='index.php';</script>";
     }else{
-        $ambil=mysqli_query($koneksi,"SELECT * FROM pengguna WHERE id_pengguna='$_GET[id]'");
-        $pengguna=$ambil->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="en">
