@@ -65,7 +65,7 @@
                                                 $data=mysqli_fetch_assoc($sql);
                                                 $_SESSION['id_pengguna']=$data['id_pengguna'];
                                                 echo "<div class='alert alert-info'>Anda berhasil Login</div>";               
-                                                echo "<meta http-equiv='refresh' content='1;url=index.php?halaman=beranda'>";         
+                                                echo "<meta http-equiv='refresh' content='1;url=index.php'>";         
                                             }
                                             else{
                                                 echo "<div class='alert alert-danger'>Login Gagal</div>";               

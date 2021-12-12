@@ -12,11 +12,7 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <?php
-                    $ambil=mysqli_query($koneksi,"SELECT * from pengguna WHERE id_pengguna = '$_SESSION[id_pengguna]'");
-                    $pengguna=$ambil->fetch_assoc();
-                ?>
-                <span class="d-none d-lg-inline text-gray-600 small">Halo, <?php echo $pengguna['nama_pengguna']?></span>
+                <span class="d-none d-lg-inline text-gray-600 small">Halo, <?php echo $userLogin['nama_pengguna']?></span>
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -44,3 +40,22 @@
     </ul>
 
 </nav>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Apakah anda yakin untuk keluar?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Tekan tombol keluar apabila ingin keluar dari sistem.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="logout.php">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
