@@ -70,15 +70,23 @@
             <span>Pegawai</span></a>
     </li>
 
+    <li class="nav-item <?php echo ($currentPage=='absensi.php') || ($currentPage=='absensi_pegawai.php') || ($currentPage=='absensi_ubah.php') ? 'active':NULL ?>">
+        <a class="nav-link" href="absensi.php">
+            <i class="fas fa-fw fa-clock"></i>
+            <span>Absensi</span></a>
+    </li>
+    <?php
+        }elseif ($userLogin['role'] == 'Pegawai'){
+    ?>
+    <li class="nav-item <?php echo ($currentPage=='absensi_perpegawai.php') ? 'active':NULL ?>">
+        <a class="nav-link" href="absensi_perpegawai.php">
+            <i class="fas fa-fw fa-clock"></i>
+            <span>Absensi</span></a>
+    </li>
     <?php
         }
     ?>
 
-    <li class="nav-item <?php echo ($currentPage=='absensi.php') || ($currentPage=='absensi_pegawai.php') || ($currentPage=='absensi_ubah.php') ? 'active':NULL ?>">
-        <a class="nav-link" href="absensi.php">
-            <i class="fas fa-fw fa-tasks"></i>
-            <span>Absensi</span></a>
-    </li>
 
     <li class="nav-item">
         <a class="nav-link" href="cuti">
