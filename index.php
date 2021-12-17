@@ -22,12 +22,28 @@
     }elseif ($userLogin['role'] == 'Pegawai'){
         $dataPegawai=mysqli_query($koneksi,"SELECT * FROM pegawai WHERE id_pengguna = $_SESSION[id_pengguna]");
         $pegawai=$dataPegawai->fetch_assoc();
+        $pegawaiID = $pegawai['id_pegawai'];
+
+        $dateNow = date('Y-m-d');
+        $dataAbsensi=mysqli_query($koneksi,"SELECT * FROM absensi WHERE id_pegawai = '$pegawaiID' AND tanggal = '$dateNow'");
+        $absensi=$dataAbsensi->fetch_assoc();
+        $countAbsensi = mysqli_num_rows($dataAbsensi);
 
         $ambilJamMasuk=mysqli_query($koneksi,"SELECT * FROM jam_kerja WHERE id_jam_kerja = 1");
         $jamMasuk=$ambilJamMasuk->fetch_assoc();
 
         $ambilJamKeluar=mysqli_query($koneksi,"SELECT * FROM jam_kerja WHERE id_jam_kerja = 2");
         $jamKeluar=$ambilJamKeluar->fetch_assoc();
+
+        date_default_timezone_set("Asia/Jakarta");
+        $times = date('H:i:s');
+        $tanggal = date('Y-m-d');
+        // echo $tanggal;
+        $masukAwal = strtotime($jamMasuk['awal']);
+        $masukAkhir = strtotime($jamMasuk['akhir']);
+        $keluarAwal = strtotime($jamKeluar['awal']);
+        $keluarAkhir = strtotime($jamKeluar['akhir']);
+        $time = strtotime($times);
     }
 ?>
 <!DOCTYPE html>
@@ -70,8 +86,6 @@
                     </div>
 
                     <?php
-                        $ambil=mysqli_query($koneksi,"SELECT * FROM pengguna WHERE id_pengguna = $_SESSION[id_pengguna]");
-                        $userLogin=$ambil->fetch_assoc();
                         if ($userLogin['role'] == 'Admin'){
                     ?>
                             <div class="row">
@@ -112,37 +126,43 @@
                             </div>
                     <?php
                         }elseif ($userLogin['role'] == 'Pegawai'){
-                            date_default_timezone_set("Asia/Jakarta");
-                            $times = date('H:i:s');
-                            $tanggal = date('Y-m-d');
-                            $masukAwal = strtotime($jamMasuk['awal']);
-                            $masukAkhir = strtotime($jamMasuk['akhir']);
-                            $time = strtotime($times);
                     ?>
                         <div class="row">
-                            <div class="col-sm-3">
+                            <div class="col-sm-4">
                                 <?php
-                                    // if($time >= $masukAwal && $time <= $masukAkhir){
-                                    if($time >= $masukAwal){
-                                        echo "<form action='' method='post'><button type='submit' name='masuk' class='btn btn-lg btn-success btn-block py-5 px-5'><i class='fas fa-3x fa-sign-in-alt'></i><br>Masuk</button></form>";
+                                    if($countAbsensi == 0){
+                                        echo "<form action='' method='post'><button type='submit' name='masuk' class='btn btn-lg btn-success btn-block py-5 px-5'><i class='fas fa-3x fa-sign-in-alt'></i><br>Absen Masuk</button></form>";
                                     }else{
-                                        echo "<button class='btn btn-lg btn-success btn-block py-5 px-5' disabled><i class='fas fa-3x fa-sign-in-alt'></i><br>Masuk</button>";
+                                        echo "<button class='btn btn-lg btn-success btn-block py-5 px-5' disabled><i class='fas fa-3x fa-sign-in-alt'></i><br>Sudah Absen Masuk</button>";
                                     }
                                 ?>
                             </div>
-                            <div class="col-sm-3">
-                                <button type="submit" name="pulang" class="btn btn-lg btn-danger btn-block py-5 px-5"><i class="fas fa-3x fa-sign-out-alt"></i><br>Pulang</button>
+                            <div class="col-sm-4">
+                                <?php
+                                    if($countAbsensi !== 0){
+                                        if($time >= $keluarAwal){
+                                            if($absensi['jam_pulang'] == NULL){
+                                                echo"<form action='' method='post'><button type='submit' name='pulang' class='btn btn-lg btn-danger btn-block py-5 px-5'><i class='fas fa-3x fa-sign-out-alt'></i><br>Absen Pulang</button></form>";
+                                            }else{
+                                                echo"<button class='btn btn-lg btn-danger btn-block py-5 px-5' disabled><i class='fas fa-3x fa-sign-out-alt'></i><br>Sudah Absen Pulang</button>";
+                                            }
+                                        }else{
+                                            echo"<button class='btn btn-lg btn-danger btn-block py-5 px-5' disabled><i class='fas fa-3x fa-sign-out-alt'></i><br>Absen Pulang</button>";
+                                        }
+                                    }else{
+                                        echo"<button class='btn btn-lg btn-danger btn-block py-5 px-5' disabled><i class='fas fa-3x fa-sign-out-alt'></i><br>Absen Pulang</button>";
+                                    }
+                                ?>
                             </div>
                         </div>
-                    <?php
+                        <?php
                             if (isset($_POST['masuk'])){
-                                $idPegawai = $pegawai['id_pegawai'];
                                 if($time >= $masukAwal && $time <= $masukAkhir){
                                     $keterangan = 'Tepat Waktu';
                                 }elseif($time >= $masukAkhir){
                                     $keterangan = 'Terlambat';
                                 }
-                                $query = "INSERT INTO absensi(id_pegawai,tanggal,jam_masuk,keterangan) VALUES ('$idPegawai','$tanggal','$times','$keterangan')";
+                                $query = "INSERT INTO absensi(id_pegawai,tanggal,jam_masuk,keterangan) VALUES ('$pegawaiID','$tanggal','$times','$keterangan')";
                                 $tambah = mysqli_query($koneksi, $query);
                                 if ($tambah) {
                                     echo "<script>alert('Anda Berhasil Absen Masuk')</script>";
@@ -153,8 +173,19 @@
                                     echo "<script>window.location='index.php'</script>";
                                 }
                             }
-                        }
-                    ?>
+                            if (isset($_POST['pulang'])){
+                                $query = "UPDATE absensi SET jam_pulang = '$times' WHERE id_pegawai = '$pegawaiID' AND tanggal = '$dateNow'";
+                                $ubah = mysqli_query($koneksi, $query);
+                                if ($ubah) {
+                                    echo "<script>alert('Anda Berhasil Absen Pulang')</script>";
+                                    echo "<script>location='absensi_perpegawai.php';</script>"; 
+                                }
+                                else{
+                                    echo "<script>alert('Anda gagal menambah data, silahkan ulangi')</script>";
+                                    echo "<script>window.location='index.php'</script>";
+                                }
+                            }
+                        ?>
                 </div>
 
             </div>
@@ -178,3 +209,6 @@
 </body>
 
 </html>
+<?php
+    }
+?>
