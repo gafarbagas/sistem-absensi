@@ -1,7 +1,7 @@
 <?php 
     session_start();
     $koneksi = mysqli_connect("localhost","root","","db_absensi");
-    // include 'tgl-indo.php';
+    include 'tgl-indo.php';
     if (!isset($_SESSION['id_pengguna'])) 
     {
         echo "<script>alert('Anda harus login');</script>";
@@ -81,9 +81,17 @@
                                             ?>
                                                 <tr>
                                                 <td><?php echo $nomor++ ?>.</td>
-                                                    <td><?php echo $absensi['tanggal'] ?></td>
+                                                    <td><?php echo tgl_indonesia($absensi['tanggal']) ?></td>
                                                     <td><?php echo $absensi['jam_masuk'] ?></td>
-                                                    <td><?php echo $absensi['jam_pulang'] ?></td>
+                                                    <td>
+                                                        <?php 
+                                                            if($absensi['jam_pulang'] != NULL){
+                                                                echo $absensi['jam_pulang'];
+                                                            }else{
+                                                                echo 'Belum Absen Pulang';
+                                                            }
+                                                        ?>
+                                                    </td>
                                                     <td><?php echo $absensi['keterangan'] ?></td>
                                                 </tr>
                                             <?php
