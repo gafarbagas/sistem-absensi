@@ -30,7 +30,7 @@
     <?php
         include ('include/include-style.php');
     ?>
-    <title>Beranda</title>
+    <title>Ubah Kata Sandi Pengguna</title>
 
 </head>
 

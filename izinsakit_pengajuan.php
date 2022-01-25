@@ -11,12 +11,12 @@
 
     $ambilUserLogin=mysqli_query($koneksi,"SELECT * from pengguna WHERE id_pengguna = $_SESSION[id_pengguna]");
     $userLogin=$ambilUserLogin->fetch_assoc();
-    $ambilPegawai=mysqli_query($koneksi, "SELECT * FROM  pegawai WHERE id_pengguna = $_SESSION[id_pengguna]");
-    $pegawai=$ambilPegawai->fetch_assoc();
     if ($userLogin['role'] != 'Pegawai'){
         echo "<script>alert('Anda tidak memilik akses');</script>";
         echo "<script>location='index.php';</script>";
     }else{
+        $ambilPegawai=mysqli_query($koneksi, "SELECT * FROM  pegawai WHERE id_pengguna = $_SESSION[id_pengguna]");
+        $pegawai=$ambilPegawai->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,34 +62,27 @@
                         <div class="col-sm">
                             <div class="card">
                                 <div class="card-body">
-                                    <form method="post" action="">
-                                        <div class="form-group row">
-                                            <label for="jenis_cuti"  class="col-sm-2 col-form-label">Jenis Cuti</label>
-                                            <div class="col-sm-4">
-                                                <select type="text" class="form-control" name="jenis_cuti" id="jenis_cuti" required>
-                                                    <option disabled selected>Pilih Jenis Cuti</option>
-                                                    <option value="Cuti Nikah">Cuti Nikah</option>
-                                                    <option value="Cuti Hamil&Melahirkan">Cuti Hamil&Melahirkan</option>
-                                                    <option value="Lainnya...">Lainnya...</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                    <form method="post" action="" enctype="multipart/form-data">
 
                                         <div class="form-group row">
-                                            <label for="awal_cuti"  class="col-sm-2 col-form-label">Tanggal Awal Cuti</label>
+                                            <label for="awal_izin_sakit"  class="col-sm-3 col-form-label">Tanggal Awal Izin Sakit</label>
                                             <div class="col-sm-4">
-                                                <input type="date" class="form-control" name="awal_cuti" id="awal_cuti" placeholder="Tanggal Awal Cuti" required>
+                                                <input type="date" class="form-control" name="awal_izin_sakit" id="awal_izin_sakit" placeholder="Tanggal Awal Izin Sakit" required>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="akhir_cuti"  class="col-sm-2 col-form-label">Tanggal Akhir Cuti</label>
+                                            <label for="akhir_izin_sakit"  class="col-sm-3 col-form-label">Tanggal Akhir Izin Sakit</label>
                                             <div class="col-sm-4">
-                                                <input type="date" class="form-control" name="akhir_cuti" id="akhir_cuti" placeholder="Tanggal Akhir Cuti" required>
+                                                <input type="date" class="form-control" name="akhir_izin_sakit" id="akhir_izin_sakit" placeholder="Tanggal Akhir Izin Sakit" required>
                                             </div>
                                         </div>
-                                        <br>
-                                        <br>
-                                        <div class="text-center">
+                                        <div class="form-group row">
+                                            <label for="bukti_izin_sakit"  class="col-sm-3 col-form-label">Bukti Izin Sakit <small>(Surat Dokter)</small></label>
+                                            <div class="col-sm-4">
+                                                <input type="file" class="form-control-file" accept="application/pdf" name="bukti_izin_sakit" id="bukti_izin_sakit" placeholder="Bukti Izin Sakit" required>
+                                            </div>
+                                        </div>
+                                        <div class="text-center mt-4">
                                             <button class="btn btn-primary" name="tambah">
                                                 Tambah
                                             </button>
@@ -103,21 +96,24 @@
                         if (isset($_POST['tambah']))
                         {
                             $id_pegawai = $pegawai['id_pegawai'];
-                            $jenis_cuti = $_POST['jenis_cuti'];
-                            $awal_cuti = $_POST['awal_cuti'];
-                            $akhir_cuti = $_POST['akhir_cuti'];
-                            $status = '1';
+                            $awal_izin_sakit = $_POST['awal_izin_sakit'];
+                            $akhir_izin_sakit = $_POST['akhir_izin_sakit'];
+                            $status = 'Belum Dikonfirmasi';
+                            $file = $_FILES['bukti_izin_sakit']['name'];
+                            $lokasi = $_FILES['bukti_izin_sakit']['tmp_name'];
+                            $filename = uniqid().'-'.$file;
+                            move_uploaded_file($lokasi, "asset/document/".$filename);
 
-                            $query = "INSERT INTO cuti (jenis_cuti,awal_cuti,akhir_cuti,status,id_pegawai) VALUES ('$jenis_cuti','$awal_cuti','$akhir_cuti','$status','$id_pegawai')";
+                            $query = "INSERT INTO izin_sakit (awal_izin_sakit,akhir_izin_sakit,bukti_izin_sakit,status_izin_sakit,id_pegawai) VALUES ('$awal_izin_sakit','$akhir_izin_sakit','$filename','$status','$id_pegawai')";
                             // die($query);
                             $tambah = mysqli_query($koneksi, $query);
                             if ($tambah) {
                                 echo "<script>alert('Data berhasil ditambahkan')</script>";
-                                echo "<script>location='pengajuancuti.php';</script>";
+                                echo "<script>location='izinsakit.php';</script>";
                             }
                             else{
                                 echo "<script>alert('Anda gagal menambah data, silahkan ulangi')</script>";
-                                echo "<script>window.location='pengajuancuti_tambah.php'</script>";
+                                echo "<script>window.location='izinsakit_pengajuan.php'</script>";
                             }
                         }
                     ?>

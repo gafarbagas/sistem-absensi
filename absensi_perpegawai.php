@@ -75,20 +75,32 @@
                                             <tbody>
                                             <?php 
                                                 $nomor=1;
-                                                $sql="SELECT * FROM absensi WHERE id_pegawai='$idPegawai' ORDER BY id_absensi DESC";
+                                                $sql="SELECT * FROM absensi WHERE id_pegawai='$idPegawai' ORDER BY tanggal DESC";
                                                 $dataAbsensi=mysqli_query($koneksi,$sql);
                                                 while($absensi=$dataAbsensi->fetch_assoc()){
                                             ?>
                                                 <tr>
                                                 <td><?php echo $nomor++ ?>.</td>
                                                     <td><?php echo tgl_indonesia($absensi['tanggal']) ?></td>
-                                                    <td><?php echo $absensi['jam_masuk'] ?></td>
+                                                    <td>
+                                                        <?php
+                                                            if($absensi['keterangan'] == 'Cuti' || $absensi['keterangan'] == 'Izin Sakit'){
+                                                                echo '-';
+                                                            }else{
+                                                                echo $absensi['jam_masuk'];
+                                                            }
+                                                        ?>
+                                                    </td>
                                                     <td>
                                                         <?php 
                                                             if($absensi['jam_pulang'] != NULL){
                                                                 echo $absensi['jam_pulang'];
                                                             }else{
-                                                                echo 'Belum Absen Pulang';
+                                                                if($absensi['keterangan'] == 'Cuti' || $absensi['keterangan'] == 'Izin Sakit'){
+                                                                    echo '-';
+                                                                }else{
+                                                                    echo 'Belum Absen Pulang';
+                                                                }
                                                             }
                                                         ?>
                                                     </td>

@@ -1,6 +1,7 @@
 <?php 
     session_start();
     $koneksi = mysqli_connect("localhost","root","","db_absensi");
+    include 'tgl-indo.php';
     if (!isset($_SESSION['id_pengguna'])) 
     {
         echo "<script>alert('Anda harus login');</script>";
@@ -10,10 +11,6 @@
 
     $ambilUserLogin=mysqli_query($koneksi,"SELECT * from pengguna WHERE id_pengguna = $_SESSION[id_pengguna]");
     $userLogin=$ambilUserLogin->fetch_assoc();
-    if ($userLogin['role'] != 'Admin'){
-        echo "<script>alert('Anda tidak memilik akses');</script>";
-        echo "<script>location='index.php';</script>";
-    }else{
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +27,7 @@
     <?php
         include ('include/include-style.php');
     ?>
-    <title>Jabatan</title>
+    <title>Cuti</title>
 
 </head>
 
@@ -52,47 +49,89 @@
 
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 text-dark">Jabatan</h1>
+                        <h1 class="h3 text-dark">Cuti</h1>
                     </div>
 
                     <div class="row text-dark mb-5">
                         <div class="col-sm">
                             <div class="card">
+                                <?php
+                                    if($userLogin['role'] == 'Pegawai'){
+                                ?>
                                 <div class="card-header py-3">
-                                    <a href="jabatan_tambah.php" class="btn btn-primary btn-icon-split btn-sm mb-1">
+                                    <a href="cuti_pengajuan.php" class="btn btn-primary btn-icon-split btn-sm mb-1">
                                         <span class="icon">
                                             <i class="fas fa-plus"></i>
                                         </span>
                                         <span class="text">Tambah</span>
                                     </a>
                                 </div>
-
+                                <?php
+                                    }
+                                ?>
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-hover table-sm text-dark nowrap" width="100%" cellspacing="0" id="projecttable">
                                             <thead class="thead">
                                                 <tr>
                                                     <th width=25px>No.</th>
-                                                    <th>Kode Jabatan</th>
-                                                    <th>Nama Jabatan</th>
+                                                    <?php
+                                                        if($userLogin['role'] == 'Admin'){
+                                                            echo "<th>Nama Pegawai</th>";
+                                                        }
+                                                    ?>
+                                                    <th>Jenis Cuti</th>
+                                                    <th>Tanggal Awal Cuti</th>
+                                                    <th>Tanggal Akhir Cuti</th>
+                                                    <th>Status</th>
                                                     <th width=53px>Aksi</th>
-                                                    
                                                 </tr>
                                             </thead>
 
                                             <tbody>
                                             <?php 
                                                 $nomor=1;
-                                                $ambil=mysqli_query($koneksi,"SELECT * from jabatan order by id_jabatan ASC");
-                                                while($jabatan=$ambil->fetch_assoc()){
+                                                if($userLogin['role'] == 'Admin'){
+                                                    $ambilCuti=mysqli_query($koneksi,"SELECT * FROM cuti JOIN pegawai ON cuti.id_pegawai = pegawai.id_pegawai ORDER BY id_cuti DESC");
+                                                }elseif($userLogin['role'] == 'Pegawai'){
+                                                    $ambilPegawai=mysqli_query($koneksi,"SELECT * FROM pegawai WHERE id_pengguna = $_SESSION[id_pengguna]");
+                                                    $pegawai=$ambilPegawai->fetch_assoc();
+                                                    $idPegawai=$pegawai['id_pegawai'];
+                                                    $ambilCuti=mysqli_query($koneksi,"SELECT * FROM cuti WHERE id_pegawai=$idPegawai ORDER BY id_cuti DESC");
+                                                }
+                                                while($cuti=$ambilCuti->fetch_assoc()){
                                             ?>
                                                 <tr>
                                                     <td><?php echo $nomor++ ?>.</td>
-                                                    <td><?php echo $jabatan['kode_jabatan'] ?></td>
-                                                    <td><?php echo $jabatan['nama_jabatan'] ?></td>
+                                                    <?php
+                                                        if($userLogin['role'] == 'Admin'){
+                                                            echo "<td>$cuti[nama_pegawai]</td>";
+                                                        }
+                                                    ?>
+                                                    <td><?php echo $cuti['jenis_cuti'] ?></td>
+                                                    <td><?php echo tgl_indonesia($cuti['awal_cuti']) ?></td>
+                                                    <td><?php echo tgl_indonesia($cuti['akhir_cuti']) ?></td>
                                                     <td>
-                                                        <a href="jabatan_ubah.php?id=<?php echo $jabatan['id_jabatan'];?>" class="btn btn-sm btn-info shadow-sm mb-1"><i class="fa fa-pencil-alt"></i></a>
-                                                        <a href="jabatan_hapus.php?id=<?php echo $jabatan['id_jabatan'];?>" class="btn btn-sm btn-danger mb-1 delete-confirm"><i class="fa fa-trash"></i></a>
+                                                        <?php if ($cuti['status'] == "Belum Dikonfirmasi") {
+                                                            echo "<span class='badge badge-secondary'>$cuti[status]</span>";
+                                                        }elseif ($cuti['status'] == "Ditolak") {
+                                                            echo "<span class='badge badge-danger'>$cuti[status]</span>";
+                                                        }elseif ($cuti['status'] == "Disetujui") {
+                                                            echo "<span class='badge badge-success'>$cuti[status]</span>";
+                                                        }?>
+                                                    </td>
+                                                    <td>
+                                                    <?php
+                                                        if($userLogin['role'] == 'Admin'){
+                                                            echo"<a href='cuti_konfirmasi.php?id=$cuti[id_cuti]' class='btn btn-success btn-sm'><i class='fa fa-check'></i></a>";
+                                                        }else{
+                                                            if($cuti['status'] == "Belum Dikonfirmasi"){
+                                                                echo"<a href='cuti_editpengajuan.php?id=$cuti[id_cuti]' class='btn btn-info btn-sm'><i class='fa fa-pencil-alt'></i></a>";
+                                                            }else{
+                                                                echo"<button class='btn btn-info btn-sm disabled'><i class='fa fa-pencil-alt'></i></button>";
+                                                            }
+                                                        }
+                                                    ?>
                                                     </td>
                                                 </tr>
                                             <?php
@@ -151,7 +190,3 @@
 </body>
 
 </html>
-
-<?php
-    }
-?>

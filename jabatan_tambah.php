@@ -30,7 +30,7 @@
     <?php
         include ('include/include-style.php');
     ?>
-    <title>Beranda</title>
+    <title>Tambah Jabatan</title>
 
 </head>
 
@@ -52,7 +52,7 @@
 
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 text-dark">Tambah Data Jabatan</h1>
+                        <h1 class="h3 text-dark">Tambah Jabatan</h1>
                     </div>
 
                     <div class="row text-dark mb-5">

@@ -88,14 +88,14 @@
     ?>
 
 
-    <li class="nav-item <?php echo ($currentPage=='pengajuancuti.php') || ($currentPage=='pengajuancuti_tambah.php') ? 'active':NULL ?>">
-        <a class="nav-link" href="pengajuancuti.php">
+    <li class="nav-item <?php echo ($currentPage=='cuti.php') || ($currentPage=='cuti_pengajuan.php') || ($currentPage=='cuti_editpengajuan.php') || ($currentPage=='cuti_konfirmasi.php') ? 'active':NULL ?>">
+        <a class="nav-link" href="cuti.php">
             <i class="fas fa-fw fa-clipboard"></i>
             <span>Cuti</span></a>
     </li>
 
-    <li class="nav-item">
-        <a class="nav-link" href="izin-sakit">
+    <li class="nav-item <?php echo ($currentPage=='izinsakit.php') || ($currentPage=='izinsakit_pengajuan.php') || ($currentPage=='izinsakit_editpengajuan.php') || ($currentPage=='izinsakit_konfirmasi.php') ? 'active':NULL ?>">
+        <a class="nav-link" href="izinsakit.php">
             <i class="fas fa-fw fa-clipboard"></i>
             <span>Izin Sakit</span></a>
     </li>

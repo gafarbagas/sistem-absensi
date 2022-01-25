@@ -36,7 +36,7 @@
     <?php
         include ('include/include-style.php');
     ?>
-    <title>Beranda</title>
+    <title>Ubah Pegawai</title>
 
 </head>
 
@@ -58,7 +58,7 @@
 
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 text-dark">Ubah Data Pegawai</h1>
+                        <h1 class="h3 text-dark">Ubah Pegawai</h1>
                     </div>
 
                     <div class="row text-dark mb-5">

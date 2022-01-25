@@ -81,25 +81,49 @@
                                             <?php 
                                                 $nomor=1;
                                                 // $sql="SELECT pegawai.nip AS nip, pegawai.nama_pegawai AS nama_pegawai, jabatan.nama_jabatan AS nama_jabatan, absensi.jam_masuk AS jam_masuk, absensi.jam_pulang AS jam_pulang FROM absensi JOIN pegawai ON absensi.id_pegawai=pegawai.id_pegawai JOIN jabatan ON jabatan.id_jabatan=pegawai.id_jabatan WHERE pegawai.id_pegawai='$_GET[id]' ORDER BY id_absensi DESC";
-                                                $sql="SELECT * FROM absensi WHERE id_pegawai='$_GET[id]' ORDER BY id_absensi DESC";
+                                                $sql="SELECT * FROM absensi WHERE id_pegawai='$_GET[id]' ORDER BY tanggal DESC";
                                                 $dataAbsensi=mysqli_query($koneksi,$sql);
                                                 while($absensi=$dataAbsensi->fetch_assoc()){
                                             ?>
                                                 <tr>
                                                 <td><?php echo $nomor++ ?>.</td>
                                                     <td><?php echo tgl_indonesia($absensi['tanggal']) ?></td>
-                                                    <td><?php echo $absensi['jam_masuk'] ?></td>
+                                                    <td>
+                                                        <?php
+                                                            if($absensi['keterangan'] == 'Cuti' || $absensi['keterangan'] == 'Izin Sakit'){
+                                                                echo '-';
+                                                            }else{
+                                                                echo $absensi['jam_masuk'];
+                                                            }
+                                                        ?>
+                                                    </td>
                                                     <td>
                                                         <?php 
                                                             if($absensi['jam_pulang'] != NULL){
                                                                 echo $absensi['jam_pulang'];
                                                             }else{
-                                                                echo 'Belum Absen Pulang';
+                                                                if($absensi['keterangan'] == 'Cuti' || $absensi['keterangan'] == 'Izin Sakit'){
+                                                                    echo '-';
+                                                                }else{
+                                                                    echo 'Belum Absen Pulang';
+                                                                }
                                                             }
                                                         ?>
                                                     </td>
                                                     <td><?php echo $absensi['keterangan'] ?></td>
-                                                    <td><button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#editAbsensi<?php echo $absensi['id_absensi'] ?>"><i class="fas fa-pencil-alt"></i></button></td>
+                                                    <td>
+                                                        <?php
+                                                            if($absensi['keterangan'] == 'Cuti' || $absensi['keterangan'] == 'Izin Sakit'){
+                                                        ?>
+                                                        
+                                                        <?php
+                                                            }else{
+                                                        ?>
+                                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#editAbsensi<?php echo $absensi['id_absensi'] ?>"><i class="fas fa-pencil-alt"></i></button>
+                                                        <?php
+                                                            }
+                                                        ?>
+                                                    </td>
                                                 </tr>
                                                 <div class="modal fade" id="editAbsensi<?php echo $absensi['id_absensi'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">

@@ -87,7 +87,12 @@
                                                     <td><?php echo $pegawai['nama_pegawai'] ?></td>
                                                     <td><?php echo $pegawai['nama_jabatan'] ?></td>
                                                     <td>
-                                                        <a href="absensi_pegawai.php?id=<?php echo $pegawai['id_pegawai'];?>" class="btn btn-sm btn-info shadow-sm mb-1"><i class="fa fa-eye"></i> Lihat Absensi</a>
+                                                        <a class="btn btn-info btn-icon-split btn-sm" href="absensi_pegawai.php?id=<?php echo $pegawai['id_pegawai'];?>">
+                                                            <span class="icon">
+                                                                <i class="fas fa-eye"></i>
+                                                            </span>
+                                                            <span class="text">Lihat Absensi</span>
+                                                        </a>
                                                     </td>
                                                 </tr>
                                             <?php

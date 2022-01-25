@@ -61,7 +61,7 @@
                             <div class="card">
                                 <div class="card-header py-3">
                                     <a href="pegawai_tambah.php" class="btn btn-primary btn-icon-split btn-sm mb-1">
-                                        <span class="icon text-white-50">
+                                        <span class="icon">
                                             <i class="fas fa-plus"></i>
                                         </span>
                                         <span class="text">Tambah</span>

@@ -131,23 +131,39 @@
                             <div class="col-sm-4">
                                 <?php
                                     if($countAbsensi == 0){
-                                        echo "<form action='' method='post'><button type='submit' name='masuk' class='btn btn-lg btn-success btn-block py-5 px-5'><i class='fas fa-3x fa-sign-in-alt'></i><br>Absen Masuk</button></form>";
+                                        if($time >= $masukAwal){
+                                            echo "<form action='' method='post'><button type='submit' name='masuk' class='btn btn-lg btn-success btn-block py-5 px-5'><i class='fas fa-3x fa-sign-in-alt'></i><br>Absen Masuk</button></form>";
+                                        }else{
+                                            echo "<button type='submit' name='masuk' class='btn btn-lg btn-success btn-block py-5 px-5' disabled><i class='fas fa-3x fa-sign-in-alt'></i><br>Absen Masuk</button>";
+                                        }
                                     }else{
-                                        echo "<button class='btn btn-lg btn-success btn-block py-5 px-5' disabled><i class='fas fa-3x fa-sign-in-alt'></i><br>Sudah Absen Masuk</button>";
+                                        if($absensi['keterangan'] == 'Cuti'){
+                                            echo "<button class='btn btn-lg btn-success btn-block py-5 px-5' disabled><i class='fas fa-3x fa-sign-in-alt'></i><br>Cuti</button>";
+                                        }elseif($absensi['keterangan'] == 'Izin Sakit'){
+                                            echo "<button class='btn btn-lg btn-success btn-block py-5 px-5' disabled><i class='fas fa-3x fa-sign-in-alt'></i><br>Izin Sakit</button>";
+                                        }else{
+                                            echo "<button class='btn btn-lg btn-success btn-block py-5 px-5' disabled><i class='fas fa-3x fa-sign-in-alt'></i><br>Sudah Absen Masuk</button>";
+                                        }
                                     }
                                 ?>
                             </div>
                             <div class="col-sm-4">
                                 <?php
                                     if($countAbsensi !== 0){
-                                        if($time >= $keluarAwal){
-                                            if($absensi['jam_pulang'] == NULL){
-                                                echo"<form action='' method='post'><button type='submit' name='pulang' class='btn btn-lg btn-danger btn-block py-5 px-5'><i class='fas fa-3x fa-sign-out-alt'></i><br>Absen Pulang</button></form>";
-                                            }else{
-                                                echo"<button class='btn btn-lg btn-danger btn-block py-5 px-5' disabled><i class='fas fa-3x fa-sign-out-alt'></i><br>Sudah Absen Pulang</button>";
-                                            }
+                                        if($absensi['keterangan'] == 'Cuti'){
+                                            echo"<button class='btn btn-lg btn-danger btn-block py-5 px-5' disabled><i class='fas fa-3x fa-sign-out-alt'></i><br>Cuti</button>";
+                                        }elseif($absensi['keterangan'] == 'Izin Sakit'){
+                                            echo"<button class='btn btn-lg btn-danger btn-block py-5 px-5' disabled><i class='fas fa-3x fa-sign-out-alt'></i><br>Izin Sakit</button>";
                                         }else{
-                                            echo"<button class='btn btn-lg btn-danger btn-block py-5 px-5' disabled><i class='fas fa-3x fa-sign-out-alt'></i><br>Absen Pulang</button>";
+                                            if($time >= $keluarAwal){
+                                                if($absensi['jam_pulang'] == NULL){
+                                                    echo"<form action='' method='post'><button type='submit' name='pulang' class='btn btn-lg btn-danger btn-block py-5 px-5'><i class='fas fa-3x fa-sign-out-alt'></i><br>Absen Pulang</button></form>";
+                                                }else{
+                                                    echo"<button class='btn btn-lg btn-danger btn-block py-5 px-5' disabled><i class='fas fa-3x fa-sign-out-alt'></i><br>Sudah Absen Pulang</button>";
+                                                }
+                                            }else{
+                                                echo"<button class='btn btn-lg btn-danger btn-block py-5 px-5' disabled><i class='fas fa-3x fa-sign-out-alt'></i><br>Absen Pulang</button>";
+                                            }
                                         }
                                     }else{
                                         echo"<button class='btn btn-lg btn-danger btn-block py-5 px-5' disabled><i class='fas fa-3x fa-sign-out-alt'></i><br>Absen Pulang</button>";

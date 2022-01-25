@@ -31,7 +31,7 @@
     <?php
         include ('include/include-style.php');
     ?>
-    <title>Beranda</title>
+    <title>Pengguna</title>
 
 </head>
 
@@ -53,7 +53,7 @@
 
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 text-dark">Data Pengguna</h1>
+                        <h1 class="h3 text-dark">Pengguna</h1>
                     </div>
 
                     <div class="row text-dark mb-5">
@@ -61,7 +61,7 @@
                             <div class="card">
                                 <div class="card-header py-3">
                                     <a href="pengguna_tambah.php" class="btn btn-primary btn-icon-split btn-sm mb-1">
-                                        <span class="icon text-white-50">
+                                        <span class="icon">
                                             <i class="fas fa-plus"></i>
                                         </span>
                                         <span class="text">Tambah</span>

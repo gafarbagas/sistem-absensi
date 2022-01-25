@@ -31,7 +31,7 @@
     <?php
         include ('include/include-style.php');
     ?>
-    <title>Beranda</title>
+    <title>Jam Kerja</title>
 
 </head>
 

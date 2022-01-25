@@ -1,7 +1,7 @@
 <?php 
     session_start();
     $koneksi = mysqli_connect("localhost","root","","db_absensi");
-    // include 'tgl-indo.php';
+    
     if (!isset($_SESSION['id_pengguna'])) 
     {
         echo "<script>alert('Anda harus login');</script>";
@@ -33,7 +33,7 @@
     <?php
         include ('include/include-style.php');
     ?>
-    <title>Beranda</title>
+    <title>Ubah Jabatan</title>
 
 </head>
 
@@ -55,7 +55,7 @@
 
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 text-dark">Ubah Data Jabatan</h1>
+                        <h1 class="h3 text-dark">Ubah Jabatan</h1>
                     </div>
 
                     <div class="row text-dark mb-5">
