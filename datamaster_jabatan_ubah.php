@@ -98,28 +98,28 @@
                                 $ubah = mysqli_query($koneksi, $query);
                                 if ($ubah) {
                                     echo "<script>alert('Data berhasil diubah')</script>";
-                                    echo "<script>location='index.php?halaman=jabatan';</script>"; 
+                                    echo "<script>location='datamaster.php';</script>"; 
                                 }
                                 else{
                                     echo "<script>alert('Anda gagal menambah data, silahkan ulangi')</script>";
-                                    echo "<script>location='index.php?halaman=jabatan-ubah&id=$jabatan[id_jabatan]';</script>";
+                                    echo "<script>location='datamaster_jabatan_ubah.php?id=$jabatan[id_jabatan]';</script>";
                                 }
                             }else{
                                 $cekJabatan = mysqli_query($koneksi, "SELECT * FROM jabatan WHERE kode_jabatan='$kodeJabatan'");
                                 $cek = mysqli_num_rows($cekJabatan);
                                 if($cek == 1){
                                     echo "<script>alert('Kode Jabatan Tidak Boleh Sama')</script>";
-                                    echo "<script>location='index.php?halaman=jabatan-ubah&id=$jabatan[id_jabatan]';</script>";
+                                    echo "<script>location='datamaster_jabatan_ubah.php?id=$jabatan[id_jabatan]';</script>";
                                 }else{
                                     $query = "UPDATE jabatan SET kode_jabatan='$kodeJabatan',nama_jabatan='$namaJabatan' WHERE id_jabatan='$_GET[id]'";
                                     $ubah = mysqli_query($koneksi, $query);
                                     if ($ubah) {
                                         echo "<script>alert('Data berhasil diubah')</script>";
-                                        echo "<script>location='index.php?halaman=jabatan';</script>"; 
+                                        echo "<script>location='datamaster.php';</script>"; 
                                     }
                                     else{
                                         echo "<script>alert('Anda gagal menambah data, silahkan ulangi')</script>";
-                                        echo "<script>location='index.php?halaman=jabatan-ubah&id=$jabatan[id_jabatan]';</script>";
+                                        echo "<script>location='datamaster_jabatan_ubah.php&id=$jabatan[id_jabatan]';</script>";
                                     }
                                 }
                             }

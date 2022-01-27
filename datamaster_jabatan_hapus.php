@@ -16,6 +16,6 @@
     }else{
         $koneksi->query("DELETE FROM jabatan WHERE id_jabatan='$_GET[id]'");
         echo "<script>alert('Data jabatan terhapus');</script>";
-        echo "<script>location='jabatan.php';</script>";
+        echo "<script>location='datamaster.php';</script>";
     }
 ?>

@@ -95,17 +95,17 @@
                             $cek = mysqli_num_rows($cekJabatan);
                             if($cek == 1){
                                 echo "<script>alert('Kode Jabatan Tidak Boleh Sama')</script>";
-                                echo "<script>window.location='jabatan_tambah.php'</script>";
+                                echo "<script>window.location='datamaster_jabatan_tambah.php'</script>";
                             }else{
                                 $query = "INSERT INTO jabatan(kode_jabatan,nama_jabatan) VALUES ('$kodeJabatan','$namaJabatan')";
                                 $tambah = mysqli_query($koneksi, $query);
                                 if ($tambah) {
                                     echo "<script>alert('Data berhasil ditambahkan')</script>";
-                                    echo "<script>location='jabatan.php';</script>"; 
+                                    echo "<script>location='datamaster.php';</script>"; 
                                 }
                                 else{
                                     echo "<script>alert('Anda gagal menambah data, silahkan ulangi')</script>";
-                                    echo "<script>window.location='jabatan_tambah.php'</script>";
+                                    echo "<script>window.location='datamaster_jabatan_tambah.php'</script>";
                                 }
                             }
                         }

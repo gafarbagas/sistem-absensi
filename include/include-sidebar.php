@@ -20,41 +20,15 @@
             <span>Dashboard</span></a>
     </li>
 
-    <hr class="sidebar-divider">
-
     <?php
         if ($userLogin['role'] == 'Admin'){
     ?>
 
-    <div class="sidebar-heading">
-        Data Master
-    </div>
-
-    <li class="nav-item <?php echo ($currentPage=='jamkerja.php') ? 'active':NULL ?>">
-        <a class="nav-link" href="jamkerja.php">
+    <li class="nav-item <?php echo ($currentPage=='datamaster.php') || ($currentPage=='datamaster_jabatan_tambah.php') || ($currentPage=='datamaster_jabatan_ubah.php') ? 'active':NULL ?>"> 
+        <a class="nav-link" href="datamaster.php">
             <i class="fas fa-fw fa-clock"></i>
-            <span>Jam Kerja</span></a>
+            <span>Data Master</span></a>
     </li>
-
-    <li class="nav-item <?php echo ($currentPage=='jabatan.php') || ($currentPage=='jabatan_tambah.php') || ($currentPage=='jabatan_ubah.php') ? 'active':NULL ?>">
-        <a class="nav-link" href="jabatan.php">
-            <i class="fas fa-fw fa-address-card"></i>
-            <span>Jabatan</span></a>
-    </li>
-    
-    <hr class="sidebar-divider">
-    <?php
-        }
-    ?>
-
-
-    <div class="sidebar-heading">
-        Data
-    </div>
-
-    <?php
-        if ($userLogin['role'] == 'Admin'){
-    ?>
 
     <li class="nav-item <?php echo ($currentPage=='pengguna.php') || ($currentPage=='pengguna_tambah.php') || ($currentPage=='pengguna_ubah.php') || ($currentPage=='pengguna_ubah_katasandi.php') ? 'active':NULL ?>">
         <a class="nav-link" href="pengguna.php">
