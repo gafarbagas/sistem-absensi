@@ -138,7 +138,7 @@
                                                             echo"<a href='izinsakit_konfirmasi.php?id=$izinsakit[id_izin_sakit]' class='btn btn-success btn-sm'><i class='fa fa-check'></i></a>";
                                                         }else{
                                                             if($izinsakit['status_izin_sakit'] == "Belum Dikonfirmasi"){
-                                                                echo"<a href='izinsakit_ubah.php?id=$izinsakit[id_izin_sakit]' class='btn btn-info btn-sm'><i class='fa fa-pencil-alt'></i></a>";
+                                                                echo"<a href='izinsakit_editpengajuan.php?id=$izinsakit[id_izin_sakit]' class='btn btn-info btn-sm'><i class='fa fa-pencil-alt'></i></a>";
                                                             }else{
                                                                 echo"<button class='btn btn-info btn-sm disabled'><i class='fa fa-pencil-alt'></i></button>";
                                                             }

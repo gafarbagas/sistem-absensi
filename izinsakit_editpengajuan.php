@@ -19,15 +19,15 @@
         echo "<script>alert('Anda tidak memilik akses');</script>";
         echo "<script>location='index.php';</script>";
     }else{
-        $ambilCuti=mysqli_query($koneksi,"SELECT * FROM cuti WHERE id_cuti='$_GET[id]'");
-        $cuti=$ambilCuti->fetch_assoc();
-        if($cuti['status'] != "Belum Dikonfirmasi"){
+        $ambilIzinSakit=mysqli_query($koneksi,"SELECT * FROM izin_sakit WHERE id_izin_sakit='$_GET[id]'");
+        $izinSakit=$ambilIzinSakit->fetch_assoc();
+        if($izinSakit['status_izin_sakit'] != "Belum Dikonfirmasi"){
             echo "<script>alert('Anda tidak memilik akses');</script>";
-            echo "<script>location='cuti.php';</script>";
+            echo "<script>location='izinsakit.php';</script>";
         }else{
-            if($cuti['id_pegawai'] != $idPegawai){
+            if($izinSakit['id_pegawai'] != $idPegawai){
                 echo "<script>alert('Anda tidak memilik akses');</script>";
-                echo "<script>location='cuti.php';</script>";
+                echo "<script>location='izinsakit.php';</script>";
             }else{
 ?>
 <!DOCTYPE html>
@@ -45,7 +45,7 @@
     <?php
         include ('include/include-style.php');
     ?>
-    <title>Ubah Pengajuan Cuti</title>
+    <title>Ubah Pengajuan Izin Sakit</title>
 
 </head>
 
@@ -67,36 +67,31 @@
 
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 text-dark">Ubah Pengajuan Cuti</h1>
+                        <h1 class="h3 text-dark">Ubah Pengajuan Izin Sakit</h1>
                     </div>
 
                     <div class="row text-dark mb-5">
-                        <div class="col-sm-6">
+                        <div class="col-sm">
                             <div class="card">
                                 <div class="card-body">
-                                    <form method="post" action="">
-                                        <div class="form-group row">
-                                            <label for="jenis_cuti"  class="col-sm-4 col-form-label">Jenis Cuti</label>
-                                            <div class="col-sm-8">
-                                                <select type="text" class="form-control" name="jenis_cuti" id="jenis_cuti" required>
-                                                    <option disabled selected>Pilih Jenis Cuti</option>
-                                                    <option value="Cuti Nikah" <?php if ($cuti['jenis_cuti']=="Cuti Nikah"){?> selected <?php }; ?>>Cuti Nikah</option>
-                                                    <option value="Cuti Hamil&Melahirkan" <?php if ($cuti['jenis_cuti']=="Cuti Hamil&Melahirkan"){?> selected <?php }; ?>>Cuti Hamil&Melahirkan</option>
-                                                    <option value="Lainnya..." <?php if ($cuti['jenis_cuti']=="Lainnya..."){?> selected <?php }; ?>>Lainnya...</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                    <form method="post" action="" enctype="multipart/form-data">
 
                                         <div class="form-group row">
-                                            <label for="awal_cuti"  class="col-sm-4 col-form-label">Tanggal Awal Cuti</label>
-                                            <div class="col-sm-8">
-                                                <input type="date" class="form-control" name="awal_cuti" id="awal_cuti" placeholder="Tanggal Awal Cuti" value="<?php echo $cuti['awal_cuti']?>" required>
+                                            <label for="awal_izin_sakit"  class="col-sm-3 col-form-label">Tanggal Awal Izin Sakit</label>
+                                            <div class="col-sm-4">
+                                                <input type="date" class="form-control" name="awal_izin_sakit" id="awal_izin_sakit" value="<?php echo $izinSakit['awal_izin_sakit']?>" required>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="akhir_cuti"  class="col-sm-4 col-form-label">Tanggal Akhir Cuti</label>
-                                            <div class="col-sm-8">
-                                                <input type="date" class="form-control" name="akhir_cuti" id="akhir_cuti" placeholder="Tanggal Akhir Cuti" value="<?php echo $cuti['akhir_cuti']?>" required>
+                                            <label for="akhir_izin_sakit"  class="col-sm-3 col-form-label">Tanggal Akhir Izin Sakit</label>
+                                            <div class="col-sm-4">
+                                                <input type="date" class="form-control" name="akhir_izin_sakit" id="akhir_izin_sakit" value="<?php echo $izinSakit['akhir_izin_sakit']?>" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="bukti_izin_sakit"  class="col-sm-3 col-form-label">Bukti Izin Sakit <small>(Surat Dokter)</small><br><small>Kosongkan bila tidak ingin diubah</small></label>
+                                            <div class="col-sm-4">
+                                                <input type="file" class="form-control-file" accept="application/pdf" name="bukti_izin_sakit" id="bukti_izin_sakit" placeholder="Bukti Izin Sakit">
                                             </div>
                                         </div>
                                         <div class="text-center mt-4">
@@ -112,20 +107,31 @@
                     <?php
                         if (isset($_POST['ubah']))
                         {
-                            $jenis_cuti = $_POST['jenis_cuti'];
-                            $awal_cuti = $_POST['awal_cuti'];
-                            $akhir_cuti = $_POST['akhir_cuti'];
+                            $awal_izin_sakit = $_POST['awal_izin_sakit'];
+                            $akhir_izin_sakit = $_POST['akhir_izin_sakit'];
+                            if(empty($_FILES['bukti_izin_sakit']['name'])) {
+                                $query = "UPDATE izin_sakit SET awal_izin_sakit='$awal_izin_sakit', akhir_izin_sakit='$akhir_izin_sakit' WHERE id_izin_sakit='$_GET[id]'";
+                            }else{
+                                $file = $_FILES['bukti_izin_sakit']['name'];
+                                $lokasi = $_FILES['bukti_izin_sakit']['tmp_name'];
+                                $filename = uniqid().'-'.$file;
+                                $file1="asset/document/".$izinSakit['bukti_izin_sakit'];
+                                if(file_exists($file1)){
+                                    unlink($file1);
+                                }
+                                move_uploaded_file($lokasi, "asset/document/".$filename);
+                                $query = "UPDATE izin_sakit SET awal_izin_sakit='$awal_izin_sakit', akhir_izin_sakit='$akhir_izin_sakit',bukti_izin_sakit='$filename' WHERE id_izin_sakit='$_GET[id]'";
+                            }
 
-                            $query = "UPDATE cuti SET jenis_cuti='$jenis_cuti', awal_cuti='$awal_cuti', akhir_cuti='$akhir_cuti' WHERE id_cuti='$_GET[id]'";
                             // die($query);
                             $ubah = mysqli_query($koneksi, $query);
                             if ($ubah) {
                                 echo "<script>alert('Data berhasil diubah')</script>";
-                                echo "<script>location='cuti.php';</script>";
+                                echo "<script>location='izinsakit.php';</script>";
                             }
                             else{
                                 echo "<script>alert('Anda gagal menambah data, silahkan ulangi')</script>";
-                                echo "<script>window.location='cuti_editpengajuan.php?id=$_GET[id]'</script>";
+                                echo "<script>window.location='izinsakit_editpengajuan.php?id=$_GET[id]'</script>";
                             }
                         }
                     ?>
