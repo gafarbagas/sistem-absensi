@@ -123,7 +123,10 @@
                                                     <td>
                                                     <?php
                                                         if($userLogin['role'] == 'Admin'){
-                                                            echo"<a href='cuti_konfirmasi.php?id=$cuti[id_cuti]' class='btn btn-success btn-sm'><i class='fa fa-check'></i></a>";
+                                                    ?>
+                                                            <a href="cuti_konfirmasi.php?id=<?php echo $cuti['id_cuti'];?>" class="btn btn-success btn-sm"><i class="fa fa-check"></i></a>
+                                                            <a href="cuti_hapus.php?id=<?php echo $cuti['id_cuti'];?>" class="btn btn-danger btn-sm delete-confirm"><i class="fa fa-trash"></i></a>
+                                                    <?php
                                                         }else{
                                                             if($cuti['status'] == "Belum Dikonfirmasi"){
                                                                 echo"<a href='cuti_editpengajuan.php?id=$cuti[id_cuti]' class='btn btn-info btn-sm'><i class='fa fa-pencil-alt'></i></a>";

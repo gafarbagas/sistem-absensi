@@ -135,7 +135,10 @@
                                                     <td>
                                                     <?php
                                                         if($userLogin['role'] == 'Admin'){
-                                                            echo"<a href='izinsakit_konfirmasi.php?id=$izinsakit[id_izin_sakit]' class='btn btn-success btn-sm'><i class='fa fa-check'></i></a>";
+                                                    ?>
+                                                            <a href="izinsakit_konfirmasi.php?id=<?php echo $izinsakit['id_izin_sakit'];?>" class="btn btn-success btn-sm mb-1"><i class="fa fa-check"></i></a>
+                                                            <a href="izinsakit_hapus.php?id=<?php echo $izinsakit['id_izin_sakit'];?>" class="btn btn-danger btn-sm delete-confirm mb-1"><i class="fa fa-trash"></i></a>
+                                                    <?php
                                                         }else{
                                                             if($izinsakit['status_izin_sakit'] == "Belum Dikonfirmasi"){
                                                                 echo"<a href='izinsakit_editpengajuan.php?id=$izinsakit[id_izin_sakit]' class='btn btn-info btn-sm'><i class='fa fa-pencil-alt'></i></a>";
