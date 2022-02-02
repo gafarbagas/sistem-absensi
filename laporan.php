@@ -76,7 +76,7 @@
                                             <form action="" method="POST" target="_blank">
                                                 <div class="form-group">
                                                     <label for="nama_pegawai" class="col-form-label">Nama Pegawai</label>
-                                                    <input type="text" class="form-control" name="nama_pegawai" id="nama_pegawai" placeholder="Nama Pegawai" autocomplete="off">
+                                                    <input type="text" class="form-control" name="nama_pegawai" id="nama_pegawai" placeholder="Nama Pegawai" autocomplete="off" required>
                                                 </div>
 
                                                 <div class="form-group row">
