@@ -10,8 +10,23 @@ $ambilPegawai = mysqli_query($koneksi,"SELECT * FROM pegawai JOIN jabatan ON peg
 $pegawai=$ambilPegawai->fetch_assoc();
 $idPegawai=$pegawai['id_pegawai'];
 $query = mysqli_query($koneksi,"SELECT * FROM absensi WHERE id_pegawai = '$idPegawai' AND MONTH(tanggal)='$_GET[bulan]' AND YEAR(tanggal)= '$_GET[tahun]'");
-$html = '<center><h3>Daftar Absensi Pegawai</h3></center><hr/><br/>';
-$html .= '
+$html = '
+<table width="100%" style="font-size: 10pt">
+    <tr>
+        <td align=center><img src="asset/img/logo2.png" width="500px" height="auto" style="margin-bottom: 2px;" /></td>
+    </tr>
+    <tr>
+        <td align=center><b>Jalan Rawa Bambu Raya No. 18 F. Lantai 3. Pasar Minggu</b></td>
+    </tr>
+    <tr>
+        <td align=center><b>Kota Adm. Jakarta Selatan</b></td>
+    </tr>
+    <tr>
+        <td align=center><b>DKI Jakarta 12520</b></td>
+    </tr>
+</table>
+<hr>
+<center><h3>Daftar Absensi Pegawai</h3></center><br/>
 <table style="border-collapse: collapse" cellpadding=5px>
     <tr>
         <td>Nama Pegawai</td>

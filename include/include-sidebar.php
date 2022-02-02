@@ -8,7 +8,7 @@
 <ul class="navbar-nav bg-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
-        <img src="asset/img/logo1.png" alt="" height=35px>
+        <img src="asset/img/logo.png" alt="" height=35px>
         <div class="sidebar-brand-text mx-3">SISAB</div>
     </a>
 

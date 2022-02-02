@@ -7,8 +7,23 @@ use Dompdf\Dompdf;
 $dompdf = new Dompdf();
 $dompdf->add_info('Title', 'Laporan Absensi');
 $ambilIzinSakit = mysqli_query($koneksi,"SELECT * FROM izin_sakit JOIN pegawai ON izin_sakit.id_pegawai = pegawai.id_pegawai ORDER BY id_izin_sakit DESC");
-$html = '<center><h3>Daftar Absensi Pegawai</h3></center><hr/><br/>';
-$html .= '
+$html = '
+<table width="100%" style="font-size: 10pt">
+    <tr>
+        <td align=center><img src="asset/img/logo2.png" width="500px" height="auto" style="margin-bottom: 2px;" /></td>
+    </tr>
+    <tr>
+        <td align=center><b>Jalan Rawa Bambu Raya No. 18 F. Lantai 3. Pasar Minggu</b></td>
+    </tr>
+    <tr>
+        <td align=center><b>Kota Adm. Jakarta Selatan</b></td>
+    </tr>
+    <tr>
+        <td align=center><b>DKI Jakarta 12520</b></td>
+    </tr>
+</table>
+<hr>
+<center><h3>Daftar Pengajuan Sakit</h3></center><br/>
 <table border="1" style="border-collapse: collapse" cellpadding=4px width="100%">
     <tr>
         <th width=25px>No.</th>
