@@ -61,7 +61,7 @@ $html = '
             <tr>
                 <td>".$no.".</td>
                 <td>".tgl_indonesia($row['tanggal'])."</td>";
-            if($row['keterangan'] == 'Cuti' || $row['keterangan'] == 'Izin Sakit'){
+            if($row['keterangan'] == 'Cuti' || $row['keterangan'] == 'Izin Sakit' || $row['keterangan'] == 'Izin'){
                 $html .= "
                 <td>--</td>
                 <td>--</td>";

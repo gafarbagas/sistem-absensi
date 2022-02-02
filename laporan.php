@@ -66,7 +66,7 @@
                                             <a class="nav-link active" href="#absensi" role="tab" aria-controls="absensi" aria-selected="true">Absensi</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link"  href="#cutisakit" role="tab" aria-controls="cutisakit" aria-selected="false">Cuti dan Izin Sakit</a>
+                                            <a class="nav-link"  href="#cutisakit" role="tab" aria-controls="cutisakit" aria-selected="false">Cuti, Izin, dan Sakit</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -84,9 +84,12 @@
                                                     <div class="col-sm-4">
                                                         <select class="form-control" name="bulan">
                                                             <?php
+                                                                $bulanNow = date('m');
                                                                 $ambilBulan = mysqli_query($koneksi,"SELECT * FROM bulan");
                                                                 while($bulan=$ambilBulan->fetch_assoc()){
-                                                                    echo"<option value=$bulan[id]>$bulan[nama_bulan]</option>";
+                                                            ?>
+                                                                <option value="<?php echo $bulan['id']?>" <?php if ($bulan['id']==$bulanNow){?> selected <?php }; ?>><?php echo $bulan['nama_bulan'] ?></option>
+                                                            <?php
                                                                 }
                                                             ?>
                                                         </select>
@@ -124,6 +127,7 @@
                                                     <select class="form-control" name="jenis_laporan" id="jenis_laporan">
                                                         <option value="cuti">Cuti</option>
                                                         <option value="izinsakit">Izin Sakit</option>
+                                                        <option value="izin">Izin</option>
                                                     </select>
                                                 </div>
                                                 <div class="row text-center">
@@ -158,6 +162,8 @@
                                 echo "<script>location='laporan_cuti.php'</script>";
                             }elseif($jenis_laporan == "izinsakit"){
                                 echo "<script>location='laporan_izinsakit.php'</script>";
+                            }elseif($jenis_laporan == "izin"){
+                                echo "<script>location='laporan_izin.php'</script>";
                             }
                         }
                     ?>
