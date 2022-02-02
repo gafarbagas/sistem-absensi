@@ -14,6 +14,7 @@
         echo "<script>alert('Anda tidak memilik akses');</script>";
         echo "<script>location='index.php';</script>";
     }else{
+        include('pegawai_function.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">

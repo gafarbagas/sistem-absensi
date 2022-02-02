@@ -89,7 +89,7 @@
                                                         $ambil=mysqli_query($koneksi,"SELECT * FROM jabatan");
                                                         while($jabatan=$ambil->fetch_assoc()){
                                                     ?>
-                                                    <option value="<?php echo $jabatan['id_jabatan']?>" <?php if ($jabatan['id_jabatan']==$jabatan['id_jabatan']){?> selected <?php }; ?>><?php echo $jabatan['nama_jabatan']?></option>
+                                                    <option value="<?php echo $jabatan['id_jabatan']?>" <?php if ($pegawai['id_jabatan']==$jabatan['id_jabatan']){?> selected <?php }; ?>><?php echo $jabatan['nama_jabatan']?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
