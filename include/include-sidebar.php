@@ -5,7 +5,7 @@
     
     $currentPage = PageName();
 ?>
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
         <img src="asset/img/logo1.png" alt="" height=35px>
@@ -71,6 +71,18 @@
             <i class="fas fa-fw fa-clipboard"></i>
             <span>Izin Sakit</span></a>
     </li>
+
+    <?php
+        if ($userLogin['role'] == 'Admin'){
+    ?>
+    <li class="nav-item <?php echo ($currentPage=='laporan.php') ? 'active':NULL ?>">
+        <a class="nav-link" href="laporan.php">
+            <i class="fas fa-fw fa-print"></i>
+            <span>Laporan</span></a>
+    </li>
+    <?php
+        }
+    ?>
 
     <!-- <li class="nav-item active">
         <a class="nav-link" href="pengguna">

@@ -11,40 +11,6 @@
 
     $ambilUserLogin=mysqli_query($koneksi,"SELECT * FROM pengguna WHERE id_pengguna = $_SESSION[id_pengguna]");
     $userLogin=$ambilUserLogin->fetch_assoc();
-    if ($userLogin['role'] == 'Admin'){
-        $pegawai = mysqli_query($koneksi,"SELECT COUNT(*) as 'count' FROM pegawai");
-        $rowPegawai = $pegawai->fetch_assoc();
-        $countPegawai = $rowPegawai['count'];
-
-        $jabatan = mysqli_query($koneksi,"SELECT COUNT(*) as 'count' FROM jabatan");
-        $rowJabatan = $jabatan->fetch_assoc();
-        $countJabatan = $rowJabatan['count'];
-    }elseif ($userLogin['role'] == 'Pegawai'){
-        $dataPegawai=mysqli_query($koneksi,"SELECT * FROM pegawai WHERE id_pengguna = $_SESSION[id_pengguna]");
-        $pegawai=$dataPegawai->fetch_assoc();
-        $pegawaiID = $pegawai['id_pegawai'];
-
-        $dateNow = date('Y-m-d');
-        $dataAbsensi=mysqli_query($koneksi,"SELECT * FROM absensi WHERE id_pegawai = '$pegawaiID' AND tanggal = '$dateNow'");
-        $absensi=$dataAbsensi->fetch_assoc();
-        $countAbsensi = mysqli_num_rows($dataAbsensi);
-
-        $ambilJamMasuk=mysqli_query($koneksi,"SELECT * FROM jam_kerja WHERE id_jam_kerja = 1");
-        $jamMasuk=$ambilJamMasuk->fetch_assoc();
-
-        $ambilJamKeluar=mysqli_query($koneksi,"SELECT * FROM jam_kerja WHERE id_jam_kerja = 2");
-        $jamKeluar=$ambilJamKeluar->fetch_assoc();
-
-        date_default_timezone_set("Asia/Jakarta");
-        $times = date('H:i:s');
-        $tanggal = date('Y-m-d');
-        // echo $tanggal;
-        $masukAwal = strtotime($jamMasuk['awal']);
-        $masukAkhir = strtotime($jamMasuk['akhir']);
-        $keluarAwal = strtotime($jamKeluar['awal']);
-        $keluarAkhir = strtotime($jamKeluar['akhir']);
-        $time = strtotime($times);
-    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -87,6 +53,13 @@
 
                     <?php
                         if ($userLogin['role'] == 'Admin'){
+                            $pegawai = mysqli_query($koneksi,"SELECT COUNT(*) as 'count' FROM pegawai");
+                            $rowPegawai = $pegawai->fetch_assoc();
+                            $countPegawai = $rowPegawai['count'];
+
+                            $jabatan = mysqli_query($koneksi,"SELECT COUNT(*) as 'count' FROM jabatan");
+                            $rowJabatan = $jabatan->fetch_assoc();
+                            $countJabatan = $rowJabatan['count'];
                     ?>
                             <div class="row">
 
@@ -126,6 +99,30 @@
                             </div>
                     <?php
                         }elseif ($userLogin['role'] == 'Pegawai'){
+                            $dataPegawai=mysqli_query($koneksi,"SELECT * FROM pegawai WHERE id_pengguna = $_SESSION[id_pengguna]");
+                            $pegawai=$dataPegawai->fetch_assoc();
+                            $pegawaiID = $pegawai['id_pegawai'];
+                    
+                            $dateNow = date('Y-m-d');
+                            $dataAbsensi=mysqli_query($koneksi,"SELECT * FROM absensi WHERE id_pegawai = '$pegawaiID' AND tanggal = '$dateNow'");
+                            $absensi=$dataAbsensi->fetch_assoc();
+                            $countAbsensi = mysqli_num_rows($dataAbsensi);
+                    
+                            $ambilJamMasuk=mysqli_query($koneksi,"SELECT * FROM jam_kerja WHERE id_jam_kerja = 1");
+                            $jamMasuk=$ambilJamMasuk->fetch_assoc();
+                    
+                            $ambilJamKeluar=mysqli_query($koneksi,"SELECT * FROM jam_kerja WHERE id_jam_kerja = 2");
+                            $jamKeluar=$ambilJamKeluar->fetch_assoc();
+                    
+                            date_default_timezone_set("Asia/Jakarta");
+                            $times = date('H:i:s');
+                            $tanggal = date('Y-m-d');
+                            // echo $tanggal;
+                            $masukAwal = strtotime($jamMasuk['awal']);
+                            $masukAkhir = strtotime($jamMasuk['akhir']);
+                            $keluarAwal = strtotime($jamKeluar['awal']);
+                            $keluarAkhir = strtotime($jamKeluar['akhir']);
+                            $time = strtotime($times);
                     ?>
                         <div class="row">
                             <div class="col-sm-4">
@@ -201,13 +198,14 @@
                                     echo "<script>window.location='index.php'</script>";
                                 }
                             }
+                        }
                         ?>
                 </div>
 
             </div>
 
             <?php
-                include('include/include-footer.php')
+                include('include/include-footer.php');
             ?>
 
         </div>
@@ -225,6 +223,3 @@
 </body>
 
 </html>
-<?php
-    }
-?>

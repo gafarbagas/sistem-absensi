@@ -57,7 +57,7 @@
                     </div>
 
                     <div class="row text-dark mb-3">
-                        <div class="col-sm-8">
+                        <div class="col-sm">
                             <div class="card">
                                 <div class="card-header">
                                     <h1 class="h5 text-dark">Jam Kerja</h1>
@@ -129,29 +129,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <div class="row">
-                                        <div class="col">
-                                            <h1 class="h5 text-dark">Cuti</h1>
-                                        </div>
-                                        <div class="col text-right">
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ubahcuti">
-                                                <i class="fa fa-pencil-alt"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                <?php 
-                                    $ambil=mysqli_query($koneksi,"SELECT * from jatah_cuti WHERE id_jatah_cuti= '1'");
-                                    $jatahCuti=$ambil->fetch_assoc();
-                                    echo "Jatah Cuti Tahunan: $jatahCuti[jatah_cuti] Hari"; 
-                                ?>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="row text-dark mb-5">
@@ -208,34 +185,6 @@
                         </div>
                     </div>
 
-                    <div class="modal fade" id="ubahcuti" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content text-dark">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Ubah Cuti</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <form action="" method="POST">
-                                    <div class="modal-body">
-                                        <div class="form-group row mt-3">
-                                            <label for="jatah_cuti" class="col-sm-4 col-form-label">Jatah Cuti Tahunan</label>
-                                            <div class="col-sm-3">
-                                                <input type="number" class="form-control" name="jatah_cuti" id="jatah_cuti" placeholder="Jatah Cuti" value="<?php echo $jatahCuti['jatah_cuti']; ?>" required>
-                                            </div>
-                                            <label class="col-sm col-form-label">Hari</label>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                        <button type="submit" name="ubahcuti" class="btn btn-primary">Simpan</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
                     <?php 
                         if (isset($_POST['ubah'])) 
                         {
@@ -253,24 +202,8 @@
                                 echo "<script>location='datamaster.php';</script>";
                             }
                         }
-
-                        if (isset($_POST['ubahcuti'])) 
-                        {
-                            $jatahCuti = $_POST['jatah_cuti'];
-                            $query = "UPDATE jatah_cuti SET jatah_cuti='$jatahCuti' WHERE id_jatah_cuti='1'";
-                            $ubah = mysqli_query($koneksi, $query);
-                            if ($ubah) {
-                                echo "<script>alert('Data berhasil diubah')</script>";
-                                echo "<script>location='datamaster.php';</script>"; 
-                            }
-                            else{
-                                echo "<script>alert('Anda gagal menambah data, silahkan ulangi')</script>";
-                                echo "<script>location='datamaster.php';</script>";
-                            }
-                        }
                     ?>
                 </div>
-
             </div>
 
             <?php
@@ -278,7 +211,6 @@
             ?>
 
         </div>
-
     </div>
 
     <a class="scroll-to-top rounded" href="#page-top">
