@@ -90,7 +90,7 @@
                                                     <td><?php echo tgl_indonesia($absensi['tanggal']) ?></td>
                                                     <td>
                                                         <?php
-                                                            if($absensi['keterangan'] == 'Cuti' || $absensi['keterangan'] == 'Izin Sakit'){
+                                                            if($absensi['keterangan'] == 'Cuti' || $absensi['keterangan'] == 'Izin Sakit' || $absensi['keterangan'] == 'Izin'){
                                                                 echo '-';
                                                             }else{
                                                                 echo $absensi['jam_masuk'];
@@ -102,7 +102,7 @@
                                                             if($absensi['jam_pulang'] != NULL){
                                                                 echo $absensi['jam_pulang'];
                                                             }else{
-                                                                if($absensi['keterangan'] == 'Cuti' || $absensi['keterangan'] == 'Izin Sakit'){
+                                                                if($absensi['keterangan'] == 'Cuti' || $absensi['keterangan'] == 'Izin Sakit' || $absensi['keterangan'] == 'Izin'){
                                                                     echo '-';
                                                                 }else{
                                                                     echo 'Belum Absen Pulang';
@@ -113,7 +113,7 @@
                                                     <td><?php echo $absensi['keterangan'] ?></td>
                                                     <td>
                                                         <?php
-                                                            if($absensi['keterangan'] == 'Cuti' || $absensi['keterangan'] == 'Izin Sakit'){
+                                                            if($absensi['keterangan'] == 'Cuti' || $absensi['keterangan'] == 'Izin Sakit' || $absensi['keterangan'] == 'Izin'){
                                                         ?>
                                                         
                                                         <?php

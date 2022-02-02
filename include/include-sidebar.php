@@ -69,7 +69,13 @@
     <li class="nav-item <?php echo ($currentPage=='izinsakit.php') || ($currentPage=='izinsakit_pengajuan.php') || ($currentPage=='izinsakit_editpengajuan.php') || ($currentPage=='izinsakit_konfirmasi.php') ? 'active':NULL ?>">
         <a class="nav-link" href="izinsakit.php">
             <i class="fas fa-fw fa-clipboard"></i>
-            <span>Izin Sakit</span></a>
+            <span>Sakit</span></a>
+    </li>
+
+    <li class="nav-item <?php echo ($currentPage=='izin.php') || ($currentPage=='izin_pengajuan.php') || ($currentPage=='izin_editpengajuan.php') || ($currentPage=='izin_konfirmasi.php') ? 'active':NULL ?>">
+        <a class="nav-link" href="izin.php">
+            <i class="fas fa-fw fa-clipboard"></i>
+            <span>Izin</span></a>
     </li>
 
     <?php

@@ -33,7 +33,7 @@
     <?php
         include ('include/include-style.php');
     ?>
-    <title>Pengajuan Izin Sakit</title>
+    <title>Pengajuan Izin</title>
 
 </head>
 
@@ -55,7 +55,7 @@
 
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 text-dark">Pengajuan Izin Sakit</h1>
+                        <h1 class="h3 text-dark">Pengajuan Izin</h1>
                     </div>
 
                     <div class="row text-dark mb-5">
@@ -65,21 +65,21 @@
                                     <form method="post" action="" enctype="multipart/form-data">
 
                                         <div class="form-group row">
-                                            <label for="awal_izin_sakit"  class="col-sm-3 col-form-label">Tanggal Awal Izin Sakit</label>
+                                            <label for="awal_izin"  class="col-sm-3 col-form-label">Tanggal Awal Izin</label>
                                             <div class="col-sm-4">
-                                                <input type="date" class="form-control" name="awal_izin_sakit" id="awal_izin_sakit" placeholder="Tanggal Awal Izin Sakit" required>
+                                                <input type="date" class="form-control" name="awal_izin" id="awal_izin" placeholder="Tanggal Awal Izin" required>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="akhir_izin_sakit"  class="col-sm-3 col-form-label">Tanggal Akhir Izin Sakit</label>
+                                            <label for="akhir_izin"  class="col-sm-3 col-form-label">Tanggal Akhir Izin</label>
                                             <div class="col-sm-4">
-                                                <input type="date" class="form-control" name="akhir_izin_sakit" id="akhir_izin_sakit" placeholder="Tanggal Akhir Izin Sakit" required>
+                                                <input type="date" class="form-control" name="akhir_izin" id="akhir_izin" placeholder="Tanggal Akhir Izin" required>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="bukti_izin_sakit"  class="col-sm-3 col-form-label">Bukti Izin Sakit <small>(Surat Dokter)</small></label>
-                                            <div class="col-sm-4">
-                                                <input type="file" class="form-control-file" accept="application/pdf" name="bukti_izin_sakit" id="bukti_izin_sakit" placeholder="Bukti Izin Sakit" required>
+                                            <label for="keterangan_izin"  class="col-sm-3 col-form-label">Ketarangan Izin</label>
+                                            <div class="col-sm">
+                                                <input type="text" class="form-control" name="keterangan_izin" id="keterangan_izin" placeholder="Ketarangan Izin" required>
                                             </div>
                                         </div>
                                         <div class="text-center mt-4">
@@ -96,24 +96,21 @@
                         if (isset($_POST['tambah']))
                         {
                             $id_pegawai = $pegawai['id_pegawai'];
-                            $awal_izin_sakit = $_POST['awal_izin_sakit'];
-                            $akhir_izin_sakit = $_POST['akhir_izin_sakit'];
-                            $status = 'Belum Dikonfirmasi';
-                            $file = $_FILES['bukti_izin_sakit']['name'];
-                            $lokasi = $_FILES['bukti_izin_sakit']['tmp_name'];
-                            $filename = uniqid().'-'.$file;
-                            move_uploaded_file($lokasi, "asset/document/".$filename);
+                            $awal_izin = $_POST['awal_izin'];
+                            $akhir_izin = $_POST['akhir_izin'];
+                            $keterangan_izin = $_POST['keterangan_izin'];
+                            $status_izin = 'Belum Dikonfirmasi';
 
-                            $query = "INSERT INTO izin_sakit (awal_izin_sakit,akhir_izin_sakit,bukti_izin_sakit,status_izin_sakit,id_pegawai) VALUES ('$awal_izin_sakit','$akhir_izin_sakit','$filename','$status','$id_pegawai')";
+                            $query = "INSERT INTO izin (awal_izin,akhir_izin,keterangan_izin,status_izin,id_pegawai) VALUES ('$awal_izin','$akhir_izin','$keterangan_izin','$status_izin','$id_pegawai')";
                             // die($query);
                             $tambah = mysqli_query($koneksi, $query);
                             if ($tambah) {
                                 echo "<script>alert('Data berhasil ditambahkan')</script>";
-                                echo "<script>location='izinsakit.php';</script>";
+                                echo "<script>location='izin.php';</script>";
                             }
                             else{
                                 echo "<script>alert('Anda gagal menambah data, silahkan ulangi')</script>";
-                                echo "<script>window.location='izinsakit_pengajuan.php'</script>";
+                                echo "<script>window.location='izin_pengajuan.php'</script>";
                             }
                         }
                     ?>
